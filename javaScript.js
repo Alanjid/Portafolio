@@ -1,7 +1,8 @@
-$('.skill-percent').each(function(){
-    $(this).animate({
-      width:$(this).attr('data-percent')},"fast");
-    });
+$('.skill-percent').each(function () {
+  $(this).animate({
+    width: $(this).attr('data-percent')
+  }, "fast");
+});
 
 ScrollReveal({ distance: "50px" });
 

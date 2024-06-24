@@ -413,19 +413,28 @@ h3 {
 }
 
 .rutas {
-  font-weight: bold;               /* Hacer el texto más grueso */
-  color: #ffffff;                  /* Color del texto */
-  background-color: #ff4081;       /* Color de fondo */
-  text-decoration: underline;      /* Subrayar el texto */
-  padding: 5px 10px;               /* Añadir espacio alrededor del texto */
-  border-radius: 5px;              /* Bordes redondeados */
-  transition: background-color 0.3s ease, color 0.3s ease; /* Transiciones suaves */
+  font-weight: bold;
+  /* Hacer el texto más grueso */
+  color: #ffffff;
+  /* Color del texto */
+  background-color: #ff4081;
+  /* Color de fondo */
+  text-decoration: underline;
+  /* Subrayar el texto */
+  padding: 5px 10px;
+  /* Añadir espacio alrededor del texto */
+  border-radius: 5px;
+  /* Bordes redondeados */
+  transition: background-color 0.3s ease, color 0.3s ease;
+  /* Transiciones suaves */
   margin-bottom: 2px;
 }
 
 .rutas:hover {
-  background-color: #ff80ab;       /* Color de fondo al pasar el cursor */
-  color: #000000;                  /* Color del texto al pasar el cursor */
+  background-color: #ff80ab;
+  /* Color de fondo al pasar el cursor */
+  color: #000000;
+  /* Color del texto al pasar el cursor */
 }
 
 
