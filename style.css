@@ -1,8 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap');
-
-/* ============================================================
-   Reset y variables
-   ============================================================ */
 * {
   margin: 0;
   padding: 0;
@@ -10,7 +6,6 @@
 }
 
 :root {
-  /* Paleta refinada (base azul/morado original) */
   --primary-color: #1b2350;
   --secondary-color: #5c6bc0;
   --accent-color: #7e57c2;
@@ -48,9 +43,6 @@ section,
   scroll-margin-top: 90px;
 }
 
-/* ============================================================
-   Barra de progreso de scroll
-   ============================================================ */
 .scroll-progress {
   position: fixed;
   top: 0;
@@ -62,9 +54,6 @@ section,
   transition: width 0.1s linear;
 }
 
-/* ============================================================
-   Reveal on scroll
-   ============================================================ */
 [data-reveal] {
   opacity: 0;
   transform: translateY(28px);
@@ -88,9 +77,6 @@ section,
   }
 }
 
-/* ============================================================
-   Navbar
-   ============================================================ */
 header {
   position: sticky;
   top: 0;
@@ -212,9 +198,6 @@ header {
   transform: translateY(-7px) rotate(-45deg);
 }
 
-/* ============================================================
-   Hero
-   ============================================================ */
 .wrapper {
   width: 100%;
   position: relative;
@@ -346,9 +329,6 @@ h3 {
   50% { transform: translateY(-14px); }
 }
 
-/* ============================================================
-   About
-   ============================================================ */
 .about {
   max-width: 1100px;
   margin: 2em auto;
@@ -415,9 +395,6 @@ h3 {
   color: var(--accent-color);
 }
 
-/* ============================================================
-   Proyectos
-   ============================================================ */
 .article {
   max-width: 1100px;
   margin: 2em auto;
@@ -602,9 +579,6 @@ h3 {
   100% { transform: translateY(0) scale(1); opacity: 1; }
 }
 
-/* ============================================================
-   Footer
-   ============================================================ */
 .footer {
   margin-top: 3em;
   background: linear-gradient(135deg, var(--primary-color), #232c63);
@@ -700,9 +674,6 @@ h3 {
 .fa-github:before { content: "\f09b"; }
 .fa-linkedin:before { content: "\f08c"; }
 
-/* ============================================================
-   Responsive
-   ============================================================ */
 @media (max-width: 860px) {
   .nav-toggle {
     display: flex;

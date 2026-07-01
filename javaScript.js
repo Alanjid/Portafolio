@@ -1,7 +1,3 @@
-// ============================================================
-// Portafolio · interacciones minimalistas (JS puro, sin dependencias)
-// ============================================================
-
 document.addEventListener("DOMContentLoaded", function () {
   const navbar = document.querySelector(".navbar");
   const navToggle = document.getElementById("navToggle");
@@ -11,10 +7,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const progressBar = document.getElementById("scrollProgress");
   const yearEl = document.getElementById("year");
 
-  // Año dinámico en el footer
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  // ---- Barra de progreso + sombra del navbar ----
   function onScroll() {
     const scrollTop = window.scrollY;
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -29,7 +23,6 @@ document.addEventListener("DOMContentLoaded", function () {
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
-  // ---- Menú móvil ----
   if (navToggle && menu) {
     navToggle.addEventListener("click", function () {
       const isOpen = menu.classList.toggle("open");
@@ -37,7 +30,6 @@ document.addEventListener("DOMContentLoaded", function () {
       navToggle.setAttribute("aria-expanded", String(isOpen));
     });
 
-    // Cerrar el menú al hacer clic en un enlace
     navLinks.forEach((link) => {
       link.addEventListener("click", function () {
         menu.classList.remove("open");
@@ -47,7 +39,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // ---- Reveal on scroll con IntersectionObserver ----
   const revealEls = document.querySelectorAll("[data-reveal]");
   if ("IntersectionObserver" in window) {
     const observer = new IntersectionObserver(
@@ -66,7 +57,6 @@ document.addEventListener("DOMContentLoaded", function () {
     revealEls.forEach((el) => el.classList.add("is-visible"));
   }
 
-  // ---- Resaltar enlace de navegación según la sección visible ----
   if ("IntersectionObserver" in window && sections.length) {
     const navObserver = new IntersectionObserver(
       (entries) => {
