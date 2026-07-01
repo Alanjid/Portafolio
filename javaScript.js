@@ -1,110 +1,89 @@
-$('.skill-percent').each(function(){
-    $(this).animate({
-      width:$(this).attr('data-percent')},"fast");
-    });
-
-ScrollReveal({ distance: "50px" });
-
-ScrollReveal().reveal(".title", {
-  delay: 200,
-  easing: "ease-in",
-  origin: "top",
-  distance: "70px",
-  duration: 900,
-});
-
-ScrollReveal().reveal(".description", {
-  delay: 1000,
-  easing: "ease-in",
-  origin: "top",
-  distance: "30px",
-  duration: 1000,
-});
-
-ScrollReveal().reveal(".btn", {
-  delay: 2000,
-  easing: "ease-in-out",
-  duration: 1000,
-});
-
-ScrollReveal().reveal(".card-container", {
-  delay: 400,
-  easing: "ease-in-out",
-  origin: "right",
-  distance: "800px",
-  duration: 2500,
-});
-
-ScrollReveal().reveal(".gradient-line", {
-  delay: 200,
-  easing: "ease",
-  origin: "left",
-  distance: "1800px",
-  duration: 3600,
-});
-
-ScrollReveal().reveal(".featured-title", {
-  delay: 400,
-  easing: "ease-in",
-  origin: "right",
-  distance: "200px",
-  duration: 1400,
-});
-
-ScrollReveal().reveal(".item", {
-  delay: 1200,
-  interval: 200,
-  origin: "bottom",
-  easing: "ease-in-out",
-  duration: 400,
-});
-
-// Lightbox
+// ============================================================
+// Portafolio · interacciones minimalistas (JS puro, sin dependencias)
+// ============================================================
 
 document.addEventListener("DOMContentLoaded", function () {
-  const galleryImages = document.querySelectorAll(".item img");
-  const lightbox = document.querySelector(".lightbox");
-  const lightboxImage = document.querySelector(".img-container img");
-  const lightboxTitle = document.querySelector(".img-container p");
-  const prevBtn = document.querySelector(".prev");
-  const nextBtn = document.querySelector(".next");
-  const body = document.querySelector("body");
+  const navbar = document.querySelector(".navbar");
+  const navToggle = document.getElementById("navToggle");
+  const menu = document.getElementById("menu");
+  const navLinks = document.querySelectorAll(".nav-link");
+  const sections = document.querySelectorAll("section[id], .wrapper[id]");
+  const progressBar = document.getElementById("scrollProgress");
+  const yearEl = document.getElementById("year");
 
-  let currentIndex;
+  // Año dinámico en el footer
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  galleryImages.forEach((img, index) => {
-    img.addEventListener("click", function () {
-      currentIndex = index;
-      updateLightbox();
-      lightbox.style.display = "flex";
-      body.classList.add("prevent-background-scroll");
-    });
-  });
+  // ---- Barra de progreso + sombra del navbar ----
+  function onScroll() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
 
-  lightbox.addEventListener("click", function (e) {
-    if (e.target === lightbox) {
-      lightbox.style.display = "none";
-      body.classList.remove("prevent-background-scroll");
+    if (progressBar) progressBar.style.width = progress + "%";
+
+    if (navbar) {
+      navbar.classList.toggle("scrolled", scrollTop > 20);
     }
-  });
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
 
-  prevBtn.addEventListener("click", function () {
-    currentIndex =
-      (currentIndex - 1 + galleryImages.length) % galleryImages.length;
-    updateLightbox();
-  });
+  // ---- Menú móvil ----
+  if (navToggle && menu) {
+    navToggle.addEventListener("click", function () {
+      const isOpen = menu.classList.toggle("open");
+      navToggle.classList.toggle("open", isOpen);
+      navToggle.setAttribute("aria-expanded", String(isOpen));
+    });
 
-  nextBtn.addEventListener("click", function () {
-    currentIndex = (currentIndex + 1) % galleryImages.length;
-    updateLightbox();
-  });
+    // Cerrar el menú al hacer clic en un enlace
+    navLinks.forEach((link) => {
+      link.addEventListener("click", function () {
+        menu.classList.remove("open");
+        navToggle.classList.remove("open");
+        navToggle.setAttribute("aria-expanded", "false");
+      });
+    });
+  }
 
-  function updateLightbox() {
-    const currentImage = galleryImages[currentIndex];
-    lightboxImage.src = currentImage.src;
-    lightboxTitle.textContent = currentImage.alt;
+  // ---- Reveal on scroll con IntersectionObserver ----
+  const revealEls = document.querySelectorAll("[data-reveal]");
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+    revealEls.forEach((el) => observer.observe(el));
+  } else {
+    revealEls.forEach((el) => el.classList.add("is-visible"));
+  }
+
+  // ---- Resaltar enlace de navegación según la sección visible ----
+  if ("IntersectionObserver" in window && sections.length) {
+    const navObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute("id");
+            navLinks.forEach((link) => {
+              link.classList.toggle(
+                "active",
+                link.getAttribute("href") === "#" + id
+              );
+            });
+          }
+        });
+      },
+      { rootMargin: "-45% 0px -45% 0px" }
+    );
+    sections.forEach((section) => navObserver.observe(section));
   }
 });
-
-
-
